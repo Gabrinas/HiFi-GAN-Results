@@ -1,0 +1,134 @@
+{
+  "run_name": "hifigan",
+  "run_description": "universal hifigan trained on LibriTTS with no spectrogram normalization and using log() for scaling instead of log10()",
+
+  "seed": 1234,
+
+  "audio": {
+    "fft_size": 1024,
+    "win_length": 1024,
+    "hop_length": 256,
+    "frame_length_ms": null,
+    "frame_shift_ms": null,
+
+    "sample_rate": 22050,
+    "preemphasis": 0.0,
+    "ref_level_db": 20,
+    "log_func": "np.log",
+
+    "do_trim_silence": false,
+    "trim_db": 60,
+
+    "num_mels": 80,
+    "mel_fmin": 0.0,
+    "mel_fmax": 8000.0,
+    "spec_gain": 1.0,
+
+    "signal_norm": false,
+    "min_level_db": -100,
+    "symmetric_norm": true,
+    "max_norm": 4.0,
+    "clip_norm": true,
+    "stats_path": null
+  },
+
+  "distributed": {
+    "backend": "nccl",
+    "url": "tcp://localhost:54324"
+  },
+
+  "use_pqmf": false,
+  "use_stft_loss": false,
+  "use_subband_stft_loss": false,
+  "use_mse_gan_loss": true,
+  "use_hinge_gan_loss": false,
+  "use_feat_match_loss": true,
+  "use_l1_spec_loss": true,
+
+  "stft_loss_weight": 0,
+  "subband_stft_loss_weight": 0,
+  "mse_G_loss_weight": 1,
+  "hinge_G_loss_weight": 0,
+  "feat_match_loss_weight": 10,
+  "l1_spec_loss_weight": 45,
+
+  "l1_spec_loss_params": {
+    "use_mel": true,
+    "sample_rate": 22050,
+    "n_fft": 1024,
+    "hop_length": 256,
+    "win_length": 1024,
+    "n_mels": 80,
+    "mel_fmin": 0.0,
+    "mel_fmax": null
+  },
+
+  "target_loss": "avg_G_loss",
+  "discriminator_model": "hifigan_discriminator",
+
+  "steps_to_start_discriminator": 0,
+
+  "generator_model": "hifigan_generator",
+
+  "resblock": "1",
+  "upsample_rates": [8, 8, 2, 2],
+  "upsample_kernel_sizes": [16, 16, 4, 4],
+  "upsample_initial_channel": 128,
+  "resblock_kernel_sizes": [3, 7, 11],
+  "resblock_dilation_sizes": [[1, 3, 5], [1, 3, 5], [1, 3, 5]],
+
+  "input_sample_rate": 22050,
+  "output_sample_rate": 22050,
+
+  "data_path": "/home/gabriel/cleaned_hifi_vocoder/yoruba_dataset_2/",
+  "feature_path": null,
+
+  "seq_len": 8192,
+  "pad_short": 2000,
+  "conv_pad": 0,
+  "use_noise_augment": false,
+  "use_cache": true,
+  "reinit_layers": [],
+
+  "batch_size": 16,
+  "run_eval": true,
+  "test_delay_epochs": 10,
+  "test_sentences_file": null,
+
+  "epochs": 10000,
+  "wd": 0.0,
+  "gen_clip_grad": -1,
+  "disc_clip_grad": -1,
+
+  "learning_rate": 0.0001,
+   "adam_b1": 0.8,
+   "adam_b2": 0.99,
+   "lr_decay": 0.999,
+
+   "segment_size": 8192,
+   "n_fft": 1024,
+   "num_mels": 80,
+   "sampling_rate": 22050,
+   "hop_size": 256,
+   "win_size": 1024,
+   "fmin": 0,
+   "fmax": 8000,
+   "fmax_for_loss": 8000,
+
+
+  "lr_gen": 0.00001,
+  "lr_disc": 0.00001,
+
+  "print_step": 25,
+  "print_eval": false,
+  "save_step": 25000,
+  "checkpoint": true,
+  "tb_model_param_stats": false,
+
+  "num_loader_workers": 8,
+  "num_val_loader_workers": 4,
+  "eval_split_size": 10,
+  "num_workers": 8,
+
+  "output_path": "/home/gabriel/cleaned_hifi_vocoder/hifi-gan/ckpts_yoruba_2"
+}
